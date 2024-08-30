@@ -8,13 +8,13 @@
 	import ChevronLeft from 'svelte-radix/ChevronLeft.svelte';
 	import ChevronRight from 'svelte-radix/ChevronRight.svelte';
 
-	import { onMount, beforeUpdate } from 'svelte';
-	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { goto, afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	const numberOfPage: number = parseInt($page.params.slug);
-	const nextPage: number = numberOfPage + 1;
-	const previousPage: number = numberOfPage - 1;
+	let numberOfPage: number = parseInt($page.params.slug);
+	let nextPage: number = numberOfPage + 1;
+	let previousPage: number = numberOfPage - 1;
 
 	const dbArtworksName: string = 'artworks';
 	const dbCategoryName: string = 'category';
@@ -52,6 +52,10 @@
 
 	onMount(async () => {
 		try {
+			numberOfPage = parseInt($page.params.slug);
+			nextPage = numberOfPage + 1;
+			previousPage = numberOfPage - 1;
+
 			asianImages = await getArtworks();
 
 			rowsOfDb = await getNumOfDbRows();
@@ -84,8 +88,6 @@
 	}
 
 	async function getArtworks(): Promise<ArtWork[]> {
-		const homepageDbLimit: number = perPage;
-
 		/**
 		 * Supabase artwork table example
 			id bigint,
@@ -96,6 +98,8 @@
 			imageName text,
 			blobUrl text
 		*/
+		// console.log(numberOfPage);
+		// console.log((numberOfPage - 1) * perPage + '     ' + numberOfPage * perPage);
 		const { data: asianArtworksData, error: asianArtworksError } = await supabase
 			.from(dbArtworksName)
 			.select(
@@ -111,7 +115,7 @@
 			)
 			.eq(dbCategoryName, dbAsianName)
 			.order('id', { ascending: false }) // check if this could be del
-			.range(numberOfPage, numberOfPage + homepageDbLimit);
+			.range((numberOfPage - 1) * perPage, numberOfPage * perPage);
 
 		if (asianArtworksData != null && asianArtworksData.length >= 0) {
 			return [...asianArtworksData];
@@ -120,6 +124,24 @@
 			return [];
 		}
 	}
+
+	afterNavigate(async () => {
+		try {
+			numberOfPage = parseInt($page.params.slug);
+			nextPage = numberOfPage + 1;
+			previousPage = numberOfPage - 1;
+
+			asianImages = await getArtworks();
+
+			rowsOfDb = await getNumOfDbRows();
+			if (rowsOfDb === undefined) {
+				rowsOfDb = 1;
+			}
+			count = rowsOfDb;
+		} catch (error) {
+			console.log('onMountError' + error);
+		}
+	});
 </script>
 
 <div class="p-20">
@@ -165,7 +187,7 @@ xl	1280px	@media (min-width: 1280px) { ... }
 	</div>
 </div>
 
-<Pagination.Root {count} {perPage} {siblingCount} let:pages let:currentPage>
+<Pagination.Root {count} {perPage} let:pages let:currentPage>
 	<Pagination.Content>
 		<Pagination.Item>
 			<Pagination.PrevButton
@@ -190,6 +212,7 @@ xl	1280px	@media (min-width: 1280px) { ... }
 				</Pagination.Item>
 			{/if}
 		{/each}
+
 		<Pagination.Item>
 			<Pagination.NextButton
 				on:click={() => {
