@@ -64,7 +64,7 @@
 		<h4
 			class="text-sm font-medium leading-none dark:text-orange-100 dark:hover:text-orange-200 hover:text-emerald-700"
 		>
-			Contact
+			<a href="/about">Contact</a>
 		</h4>
 		<Separator class="w-full my-4 bg-cyan-900 border-cyan-950" />
 

@@ -31,8 +31,6 @@
 	let { supabase } = data;
 	$: ({ supabase } = data);
 
-	const homepageDbLimit: number = 4;
-
 	let asianImages: ArtWork[] = [
 		{
 			id: 9007199254740991n,
@@ -169,68 +167,68 @@
 		return [];
 	}
 
-	// This function does 4 things in order to update the blob url inside the artwork table:
-	// 		1) it takes all the rows of the artwork's table with a null url
-	//		2) it takes the title of each one of these rows elem
-	//	 	3) get the corresponding url from the storage
-	//		4) update each url inside the artwork table
-	async function updateBlobUrl(): Promise<void> {
-		const dbArtworksName: string = 'artworks';
-		const artworksbucket: string = 'artworksbucket';
-		const artworkFolder = 'artwork';
-		const blobUrlDbName = 'blobUrl';
+	// // This function does 4 things in order to update the blob url inside the artwork table:
+	// // 		1) it takes all the rows of the artwork's table with a null url
+	// //		2) it takes the title of each one of these rows elem
+	// //	 	3) get the corresponding url from the storage
+	// //		4) update each url inside the artwork table
+	// async function updateBlobUrl(): Promise<void> {
+	// 	const dbArtworksName: string = 'artworks';
+	// 	const artworksbucket: string = 'artworksbucket';
+	// 	const artworkFolder = 'artwork';
+	// 	const blobUrlDbName = 'blobUrl';
 
-		// take all the rows without a url and get their id, imagename
-		const { data: artworkData, error: artworksError } = await supabase
-			.from(dbArtworksName)
-			.select(
-				`
-				id,
-				imageName,
-				blobUrl
-				`
-			)
-			.eq(blobUrlDbName, '');
+	// 	// take all the rows without a url and get their id, imagename
+	// 	const { data: artworkData, error: artworksError } = await supabase
+	// 		.from(dbArtworksName)
+	// 		.select(
+	// 			`
+	// 			id,
+	// 			imageName,
+	// 			blobUrl
+	// 			`
+	// 		)
+	// 		.eq(blobUrlDbName, '');
 
-		if (artworksError == null && artworkData != null) {
-			// for each row inside the artwork table with the empty url
-			artworkData.forEach(async (element) => {
-				//get the corresponding url
-				const publicUrl: string = await getPublicBlobUrl(
-					artworksbucket,
-					artworkFolder,
-					element.imageName
-				);
+	// 	if (artworksError == null && artworkData != null) {
+	// 		// for each row inside the artwork table with the empty url
+	// 		artworkData.forEach(async (element) => {
+	// 			//get the corresponding url
+	// 			const publicUrl: string = await getPublicBlobUrl(
+	// 				artworksbucket,
+	// 				artworkFolder,
+	// 				element.imageName
+	// 			);
 
-				if (publicUrl != null || publicUrl != '') {
-					// update it inside the table
-					const { error: updatingError } = await supabase
-						.from(dbArtworksName)
-						.update({ blobUrl: publicUrl })
-						.eq('id', element.id);
+	// 			if (publicUrl != null || publicUrl != '') {
+	// 				// update it inside the table
+	// 				const { error: updatingError } = await supabase
+	// 					.from(dbArtworksName)
+	// 					.update({ blobUrl: publicUrl })
+	// 					.eq('id', element.id);
 
-					if (updatingError != null) {
-						console.log(updatingError);
-					}
-				}
-			});
-		}
-	}
+	// 				if (updatingError != null) {
+	// 					console.log(updatingError);
+	// 				}
+	// 			}
+	// 		});
+	// 	}
+	// }
 
-	// It takes in input a bucket, a folder and a filename; it returns a public url to fetch
-	async function getPublicBlobUrl(
-		bucket: string,
-		folder: string,
-		filename: string
-	): Promise<string> {
-		try {
-			const { data } = supabase.storage.from(bucket).getPublicUrl(folder + '/' + filename);
-			return data.publicUrl;
-		} catch (error) {
-			console.log(error);
-			return '';
-		}
-	}
+	// // It takes in input a bucket, a folder and a filename; it returns a public url to fetch
+	// async function getPublicBlobUrl(
+	// 	bucket: string,
+	// 	folder: string,
+	// 	filename: string
+	// ): Promise<string> {
+	// 	try {
+	// 		const { data } = supabase.storage.from(bucket).getPublicUrl(folder + '/' + filename);
+	// 		return data.publicUrl;
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 		return '';
+	// 	}
+	// }
 </script>
 
 <div class="p-20">
