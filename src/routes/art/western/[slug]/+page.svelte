@@ -155,7 +155,7 @@
 				<a
 					href="/art/western/1"
 					class="dark:text-orange-100 dark:hover:text-orange-200 hover:text-emerald-700"
-					>western Art</a
+					>Western Art</a
 				>
 			</h4>
 		</div>
