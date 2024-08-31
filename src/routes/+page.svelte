@@ -5,6 +5,7 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import { Separator } from '$lib/components/ui/separator';
+
 	import baseImage from '$lib/imgs/sumiepine.jpg';
 
 	import { onMount } from 'svelte';
@@ -70,7 +71,7 @@
 	onMount(async () => {
 		asianImages = await getArtworks('asian');
 		westernImages = await getArtworks('western');
-		//stampImages = await getArtworks('stamp');
+		stampImages = await getArtworks('stamp');
 	});
 
 	async function getArtworks(category: string): Promise<ArtWork[]> {
@@ -80,7 +81,7 @@
 		const dbWesternName: string = 'western';
 		const dbStampName: string = 'stamp';
 
-		const homepageDbLimit: number = 4;
+		const homepageDbLimit: number = 6;
 
 		/**
 		 * Supabase artwork table example
@@ -107,6 +108,7 @@
 				`
 				)
 				.eq(dbCategoryName, dbAsianName)
+				.order('id', { ascending: false }) // check if this could be del
 				.limit(homepageDbLimit);
 
 			if (asianArtworksData != null && asianArtworksData.length >= 0) {
@@ -131,6 +133,7 @@
 				`
 				)
 				.eq(dbCategoryName, dbWesternName)
+				.order('id', { ascending: false }) // check if this could be del
 				.limit(homepageDbLimit);
 
 			if (westernArtworksData != null && westernArtworksData.length >= 0) {
@@ -154,6 +157,7 @@
 				`
 				)
 				.eq(dbCategoryName, dbStampName)
+				.order('id', { ascending: false }) // check if this could be del
 				.limit(homepageDbLimit);
 
 			if (stampArtworksData != null && stampArtworksData.length >= 0) {
