@@ -7,6 +7,7 @@
 
 	import ChevronLeft from 'svelte-radix/ChevronLeft.svelte';
 	import ChevronRight from 'svelte-radix/ChevronRight.svelte';
+	import { Magnifier } from 'svelte-magnifier';
 
 	import { onMount } from 'svelte';
 	import { goto, afterNavigate } from '$app/navigation';
@@ -171,10 +172,10 @@ xl	1280px	@media (min-width: 1280px) { ... }
 							<Card.Title>{image.title}</Card.Title>
 						</Card.Header>
 						<Card.Content>
-							<img
+							<Magnifier
 								src={image.blobUrl}
 								alt={image.category}
-								class="rounded flex items-center 2xl:h-72"
+								class="rounded flex items-center 2xl:h-73"
 							/>
 						</Card.Content>
 						<Card.Footer>

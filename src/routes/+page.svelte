@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let data;
+	import { Magnifier } from 'svelte-magnifier';
 
 	import * as Card from '$lib/components/ui/card/index.js';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
@@ -263,10 +264,10 @@
 									<Card.Title>{image.title}</Card.Title>
 								</Card.Header>
 								<Card.Content class="grid gap-4">
-									<img
+									<Magnifier
 										src={image.blobUrl}
 										alt={image.category}
-										class="rounded flex items-center 2xl:h-72"
+										class="rounded flex items-center"
 									/>
 								</Card.Content>
 								<Card.Footer>
@@ -304,10 +305,10 @@
 									<Card.Title>{image.title}</Card.Title>
 								</Card.Header>
 								<Card.Content class="grid gap-4">
-									<img
+									<Magnifier
 										src={image.blobUrl}
 										alt={image.category}
-										class="rounded flex items-center 2xl:h-72"
+										class="rounded flex items-center"
 									/>
 								</Card.Content>
 								<Card.Footer>
@@ -345,10 +346,10 @@
 									<Card.Title>{image.title}</Card.Title>
 								</Card.Header>
 								<Card.Content class="grid gap-4">
-									<img
+									<Magnifier
 										src={image.blobUrl}
 										alt={image.category}
-										class="rounded flex items-center 2xl:h-72"
+										class="rounded flex items-center"
 									/>
 								</Card.Content>
 								<Card.Footer>

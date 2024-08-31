@@ -7,6 +7,7 @@
 
 	import ChevronLeft from 'svelte-radix/ChevronLeft.svelte';
 	import ChevronRight from 'svelte-radix/ChevronRight.svelte';
+	import { Magnifier } from 'svelte-magnifier';
 
 	import { onMount } from 'svelte';
 	import { goto, afterNavigate } from '$app/navigation';
@@ -158,9 +159,9 @@
 		</div>
 		<Separator class="my-4 bg-cyan-900 border-cyan-950 -ml-4 md:-ml-4" />
 		<!-- md	768px	@media (min-width: 768px) { ... }
-lg	1024px	@media (min-width: 1024px) { ... }
-xl	1280px	@media (min-width: 1280px) { ... }
-2xl -->
+		lg	1024px	@media (min-width: 1024px) { ... }
+		xl	1280px	@media (min-width: 1280px) { ... }
+		2xl -->
 		<div
 			class="2xl:grid 2xl:grid-rows-3 2xl:grid-col-3 2xl:grid-flow-col 2xl:gap-4 xl:grid xl:grid-rows-3 xl:grid-col-3 xl:grid-flow-col xl:gap-4 lg:grid lg:grid-rows-3 lg:grid-col-3 lg:grid-flow-col lg:gap-4"
 		>
@@ -171,10 +172,10 @@ xl	1280px	@media (min-width: 1280px) { ... }
 							<Card.Title>{image.title}</Card.Title>
 						</Card.Header>
 						<Card.Content>
-							<img
+							<Magnifier
 								src={image.blobUrl}
 								alt={image.category}
-								class="rounded flex items-center 2xl:h-72"
+								class="rounded flex items-center 2xl:h-73"
 							/>
 						</Card.Content>
 						<Card.Footer>
