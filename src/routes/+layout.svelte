@@ -10,13 +10,62 @@
 
 	import * as Command from '$lib/components/ui/command/index.js';
 	import { Separator } from '$lib/components/ui/separator';
+
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
 </script>
 
 <ModeWatcher defaultMode={'dark'} />
 
 <nav class="bg-rose-950 flex">
-	<h1 class="p-1 pt-2 text-5xl">Mc Baguetti</h1>
-
+	<DropdownMenu.Root>
+		<DropdownMenu.Trigger asChild let:builder>
+			<Button builders={[builder]}><h1 class="p-1 pt-8 text-5xl">Mc Baguetti</h1></Button>
+		</DropdownMenu.Trigger>
+		<DropdownMenu.Content class="w-70 h-80 bg-neutral-950">
+			<DropdownMenu.Separator />
+			<DropdownMenu.Item>
+				<a
+					href="/"
+					class="rounded-md bg-gray-900 text-gray-200 hover:bg-teal-950 hover:text-gray-400 px-3 py-2 text-sm font-medium"
+					aria-current="page">Homepage</a
+				>
+			</DropdownMenu.Item>
+			<DropdownMenu.Item>
+				<a
+					href="/art/asian/1"
+					class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-teal-950 hover:text-white"
+					>Asian Art</a
+				>
+			</DropdownMenu.Item>
+			<DropdownMenu.Item>
+				<a
+					href="/art/western/1"
+					class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-teal-950 hover:text-white"
+					>Western Art</a
+				>
+			</DropdownMenu.Item>
+			<DropdownMenu.Item>
+				<a
+					href="/art/stamp/1"
+					class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-teal-950 hover:text-white"
+					>Stamps</a
+				>
+			</DropdownMenu.Item>
+			<DropdownMenu.Item>
+				<a
+					href="/about"
+					class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-teal-950 hover:text-white"
+					>About</a
+				>
+			</DropdownMenu.Item>
+			<DropdownMenu.Item>
+				<button class="flex rounded-md px-3 py-2" on:click={toggleMode}>
+					<Skull class="absolute h-[1.2rem] w-[1.2rem] dark:rotate-0 dark:scale-100" />
+				</button>
+			</DropdownMenu.Item>
+		</DropdownMenu.Content>
+	</DropdownMenu.Root>
 	<div class="mx-auto max-w-3xl px-2 sm:px-6 lg:px-8">
 		<div class="relative flex h-16 items-center justify-between">
 			<div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">

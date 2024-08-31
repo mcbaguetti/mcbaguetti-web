@@ -1,6 +1,8 @@
 <script lang="ts">
 	export let data;
 
+	// import Dollar from 'lucide-svelte/icons/badge-dollar-sign';
+
 	import * as Pagination from '$lib/components/ui/pagination';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Separator } from '$lib/components/ui/separator';
@@ -181,6 +183,10 @@
 						<Card.Footer>
 							<Card.Description class="italic">{image.description}</Card.Description>
 						</Card.Footer>
+
+						<!-- {#if image.available}
+							<Dollar size="39" class="pl-10" />
+						{/if} -->
 					</Card.Root>
 				</div>
 			{/each}
