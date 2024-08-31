@@ -151,9 +151,9 @@
 		<div class="space-y-1">
 			<h4 class="text-sm font-medium leading-none">
 				<a
-					href="/art/stamp"
+					href="/art/stamp/1"
 					class="dark:text-orange-100 dark:hover:text-orange-200 hover:text-emerald-700"
-					>stamp Art</a
+					>Stamp Art</a
 				>
 			</h4>
 		</div>
