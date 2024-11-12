@@ -1,5 +1,5 @@
 # mcbaguetti-web
-
+url: https://mcbaguetti-web.vercel.app/
 
 ## Install and run the project
 ### 1. install vite 
